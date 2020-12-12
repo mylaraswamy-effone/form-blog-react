@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
 import './FullPost.css';
-import axios from '../../../src/axios';
+import axios from '../../../../src/axios';
 
 class FullPost extends Component {
   state = {
     loadedPost: null
   }
 
-  componentDidUpdate() {
-    if (this.props.id) {
-      if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.id)) {
-        axios.get('/posts/'+this.props.id)
+  componentDidMount() {
+    console.log(this.props)
+    if (this.props.match.params.id) {
+      if(!this.state.loadedPost || (this.state.loadedPost && this.state.loadedPost.id !== this.props.match.params.id)) {
+        axios.get('/posts/'+this.props.match.params.id)
         .then(response => {
           this.setState({loadedPost: response.data})
         });
